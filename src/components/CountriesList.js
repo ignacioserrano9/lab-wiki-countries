@@ -1,30 +1,34 @@
-import React from 'react';
-import countries from '../countries.json'
-import {Link} from 'react-router-dom';
+import React, {Component} from 'react'
+import countries from './../countries.json'
+import { Link } from 'react-router-dom';
 
-export default class CountriesList extends React.Component {
+class CountriesList extends Component {
+    constructor (){
+        super ()
+        this.state = {
+            jsoncountries: countries
+        }
+    }
 
-
-    render() {
-        return(
-            <div className="ui middle aligned divided list">
-            <div className="item">
-            <div className="content">
-                {countries.map((v, i) => {
-                    return <Link to={`/countries/${v.cca3}`} 
-                    className="list-group-item-action"
-                    key={i}>
-                        <img className="ui avatar image"
-                        src={`https://www.countryflags.io/${v.cca2}/flat/64.png`}
-                        alt="{i}"
-                    />
-                    {v.name.common}
+    render () {
+        return (
+            <>
+           
+            <div className="list-group">
+            {
+                this.state.jsoncountries.map((country, index)=>
+                    <Link to={`/countries/${country.cca3}`} key={index}>
+                        <div className="list-group-item list-group-item-action">
+                            <img src={`https://www.countryflags.io/${country.cca2}/flat/64.png`} alt="foto bandera"/>
+                            <div className="country-name">{country.name.common}</div>
+                        </div>
                     </Link>
-                })}
-            </div>
-                
-            </div>
-            </div>
+                )
+            }
+        </div>
+        </>
         )
     }
 }
+
+export default CountriesList
